@@ -1,0 +1,46 @@
+# Flowerist Core Architectural Rules & Guidelines
+
+Welcome to the Flowerist project! This file defines the core architectural principles, patterns, and style guidelines that must be strictly followed when writing code for this dual-role marketplace application.
+
+## 1. Feature-First Architecture
+The project must strictly follow a **Feature-First** folder structure to keep the codebase modular, clean, and highly scalable.
+- Organize the code by features (e.g., `auth`, `catalog`, `cart`, `orders`, `dashboard`) rather than by technical layers (e.g., `models`, `views`, `controllers`).
+- Inside each feature, divide the structure into:
+  - `presentation`: UI widgets, screens, and state controllers/notifiers.
+  - `domain`: Core business logic, entity models, and repository interfaces.
+  - `data`: Repository implementations, data sources (local/remote), API service clients, and data transfer objects (DTOs).
+- Shared or global utilities, widgets, theme, and common models should be placed in a `shared` or `core` directory.
+
+## 2. State Management with Riverpod
+All state management across the app must be handled using **Riverpod**.
+- Use the Riverpod generator (`@riverpod`, `riverpod_generator`) for writing providers wherever possible to ensure type safety and boilerplate reduction.
+- Keep UI components (widgets) clean and stateless or extending `ConsumerStatefulWidget`/`ConsumerWidget` where state is consumed.
+- Do not mix state management solutions (avoid standard `setState` in complex widgets, do not use `Provider` or `Bloc` packages).
+
+## 3. App Routing with go_router
+Routing and navigation must be handled using the **go_router** package.
+- Define routes declaratively in a central router configuration.
+- Use strongly-typed routing if possible, or use clean, self-documenting path definitions.
+- Implement path and query parameters for deep linking capabilities.
+
+## 4. Single-Auth Role-Based Routing
+The app must handle role-based routing (Customer Home vs. Vendor Dashboard) from a single authentication state.
+- The root or main router should listen to the authentication state provider.
+- Based on the user profile/role (e.g., `customer` or `vendor`) fetched after authentication, dynamically redirect the user:
+  - Customers -> Customer Home Screen/Flow
+  - Vendors -> Vendor Dashboard Screen/Flow
+- Use redirect guards in `go_router` to handle role changes or unauthenticated states smoothly and prevent unauthorized access to specific views.
+
+## 5. UI & UX Guidelines
+The UI must be modern, fluid, and feature smooth animations.
+- Adopt modern material design or custom design system guidelines meticulously.
+- Use explicit and implicit animations to provide immediate, satisfying visual feedback.
+- Ensure transitions between screens (via `go_router` custom transition page builders) are smooth.
+- Implement proper loading, error, and empty states using clean, animated UI elements.
+
+## 6. Language and Naming Conventions
+- All code, variable names, class names, method names, comments, and file names must be written in **English**.
+- Follow Dart standard naming guidelines:
+  - `lower_camel_case` for variables, properties, functions, and parameters.
+  - `UpperCamelCase` for classes, types, enums, and extensions.
+  - `lowercase_with_underscores` for library, package, and source files.
