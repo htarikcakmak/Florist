@@ -77,7 +77,9 @@ class FloweristApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeNotifier = ref.watch(themeProvider.notifier);
+    // State'i watch ediyoruz ki değişince rebuild olsun
+    ref.watch(themeProvider);
+    final themeNotifier = ref.read(themeProvider.notifier);
 
     // ÇİÇEK TEMALI (Sadece Soft Yeşil)
     const primaryGreen = Color(0xFF2C5E3B);
