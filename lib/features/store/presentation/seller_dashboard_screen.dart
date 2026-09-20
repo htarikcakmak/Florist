@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../auth/presentation/auth_provider.dart';
 import '../../catalog/domain/vendor.dart';
 import '../../catalog/presentation/marketplace_provider.dart';
+import '../../review/presentation/review_provider.dart';
+import '../../review/domain/review.dart';
 import 'store_provider.dart';
 
 // --- TEMİZ KOD YARDIMCILARI ---
@@ -29,13 +31,29 @@ class StoreProfileNotifier extends Notifier<Vendor?> {
 }
 final myStoreProfileProvider = NotifierProvider<StoreProfileNotifier, Vendor?>(() => StoreProfileNotifier());
 
-class SellerDashboardScreen extends ConsumerWidget {
+class SellerDashboardScreen extends ConsumerStatefulWidget {
   const SellerDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SellerDashboardScreen> createState() => _SellerDashboardScreenState();
+}
+
+class _SellerDashboardScreenState extends ConsumerState<SellerDashboardScreen> {
+  int _selectedTab = 0; // 0 = Ürünlerim, 1 = Yorumlar
+
+  @override
+  void initState() {
+    super.initState();
+    // Yorumları yükle
+    Future.microtask(() => ref.read(reviewProvider.notifier).loadStoreReviews(0));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final myFlowers = ref.watch(storeProvider);
     final myStoreProfile = ref.watch(myStoreProfileProvider);
+    final reviewState = ref.watch(reviewProvider);
+    final primary = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F7),
@@ -55,6 +73,7 @@ class SellerDashboardScreen extends ConsumerWidget {
           ? const _StoreSetupForm()
           : Column(
               children: [
+                // Mağaza profil başlığı
                 Container(
                   color: Colors.white,
                   padding: const EdgeInsets.only(bottom: 16),
@@ -106,7 +125,7 @@ class SellerDashboardScreen extends ConsumerWidget {
                                 Text('Teslimat: ${myStoreProfile.deliveryTime}', style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
                                 Text(
                                   myStoreProfile.shippingCost == 0 ? 'Ücretsiz Kargo' : 'Kargo: ₺${myStoreProfile.shippingCost.toStringAsFixed(2)}',
-                                  style: TextStyle(color: myStoreProfile.shippingCost == 0 ? Theme.of(context).colorScheme.primary : Colors.black87, fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: myStoreProfile.shippingCost == 0 ? primary : Colors.black87, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -116,39 +135,61 @@ class SellerDashboardScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                
-                Expanded(
-                  child: myFlowers.isEmpty
-                      ? const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(24.0),
-                            child: Text(
-                              'Mağazanız yayında.\nVitrininiz boş, sağ alttan çiçek eklemeye başlayın.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16, color: Colors.grey),
+                const SizedBox(height: 8),
+
+                // Tab seçici: Ürünlerim / Yorumlar
+                Container(
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => _selectedTab = 0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(color: _selectedTab == 0 ? primary : Colors.transparent, width: 2.5)),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.local_florist_rounded, size: 18, color: _selectedTab == 0 ? primary : Colors.grey),
+                                const SizedBox(width: 6),
+                                Text('Ürünlerim (${myFlowers.length})', style: TextStyle(fontWeight: FontWeight.bold, color: _selectedTab == 0 ? primary : Colors.grey)),
+                              ],
                             ),
                           ),
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          itemCount: myFlowers.length,
-                          itemBuilder: (context, index) {
-                            final flower = myFlowers[index];
-                            return Card(
-                              margin: const EdgeInsets.only(bottom: 12),
-                              child: ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: buildResponsiveImage(flower.imagePath, width: 50, height: 50),
-                                ),
-                                title: Text(flower.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                                subtitle: Text(flower.category, style: const TextStyle(fontSize: 12, color: Colors.grey)), 
-                                trailing: Text('₺${flower.price.toStringAsFixed(2)}', style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold, fontSize: 16)),
-                              ),
-                            );
-                          },
                         ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => _selectedTab = 1),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              border: Border(bottom: BorderSide(color: _selectedTab == 1 ? primary : Colors.transparent, width: 2.5)),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.star_rounded, size: 18, color: _selectedTab == 1 ? primary : Colors.grey),
+                                const SizedBox(width: 6),
+                                Text('Yorumlar (${reviewState.reviews.length})', style: TextStyle(fontWeight: FontWeight.bold, color: _selectedTab == 1 ? primary : Colors.grey)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                // Tab içeriği
+                Expanded(
+                  child: _selectedTab == 0
+                      ? _buildProductsTab(myFlowers, context)
+                      : _buildReviewsTab(reviewState, primary),
                 ),
               ],
             ),
@@ -167,6 +208,185 @@ class SellerDashboardScreen extends ConsumerWidget {
               label: const Text('Çiçek Ekle'),
             )
           : null,
+    );
+  }
+
+  Widget _buildProductsTab(List myFlowers, BuildContext context) {
+    if (myFlowers.isEmpty) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(24.0),
+          child: Text(
+            'Mağazanız yayında.\nVitrininiz boş, sağ alttan çiçek eklemeye başlayın.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ),
+      );
+    }
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      itemCount: myFlowers.length,
+      itemBuilder: (context, index) {
+        final flower = myFlowers[index];
+        return Card(
+          margin: const EdgeInsets.only(bottom: 12),
+          child: ListTile(
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: buildResponsiveImage(flower.imagePath, width: 50, height: 50),
+            ),
+            title: Text(flower.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Text(flower.category, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+            trailing: Text('₺${flower.price.toStringAsFixed(2)}', style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold, fontSize: 16)),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildReviewsTab(ReviewState reviewState, Color primary) {
+    if (reviewState.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (reviewState.reviews.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.rate_review_outlined, size: 64, color: Colors.grey.shade300),
+            const SizedBox(height: 12),
+            Text('Henüz yorum yok', style: TextStyle(fontSize: 18, color: Colors.grey.shade500, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 4),
+            Text('Müşterileriniz yorum yaptığında burada görünecek', style: TextStyle(fontSize: 13, color: Colors.grey.shade400)),
+          ],
+        ),
+      );
+    }
+
+    // Ortalama puan
+    final avgRating = reviewState.reviews.map((r) => r.rating).reduce((a, b) => a + b) / reviewState.reviews.length;
+
+    return Column(
+      children: [
+        // Ortalama puan kartı
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10)],
+          ),
+          child: Row(
+            children: [
+              Column(
+                children: [
+                  Text(avgRating.toStringAsFixed(1), style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: primary)),
+                  Row(
+                    children: List.generate(5, (i) => Icon(
+                      i < avgRating.round() ? Icons.star_rounded : Icons.star_outline_rounded,
+                      color: Colors.amber, size: 18,
+                    )),
+                  ),
+                  const SizedBox(height: 4),
+                  Text('${reviewState.reviews.length} yorum', style: TextStyle(color: Colors.grey.shade500, fontSize: 12)),
+                ],
+              ),
+              const SizedBox(width: 24),
+              Expanded(
+                child: Column(
+                  children: List.generate(5, (i) {
+                    final star = 5 - i;
+                    final count = reviewState.reviews.where((r) => r.rating == star).length;
+                    final ratio = reviewState.reviews.isNotEmpty ? count / reviewState.reviews.length : 0.0;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Row(
+                        children: [
+                          Text('$star', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                          const SizedBox(width: 4),
+                          const Icon(Icons.star_rounded, size: 12, color: Colors.amber),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: LinearProgressIndicator(value: ratio, backgroundColor: Colors.grey.shade200, color: primary, minHeight: 6),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          SizedBox(width: 20, child: Text('$count', style: TextStyle(fontSize: 11, color: Colors.grey.shade500))),
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // Yorum listesi
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: reviewState.reviews.length,
+            itemBuilder: (context, index) {
+              final review = reviewState.reviews[index];
+              final timeAgo = DateTime.now().difference(review.createdAt);
+              String timeText;
+              if (timeAgo.inDays > 0) {
+                timeText = '${timeAgo.inDays} gün önce';
+              } else if (timeAgo.inHours > 0) {
+                timeText = '${timeAgo.inHours} saat önce';
+              } else {
+                timeText = 'Az önce';
+              }
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 6)],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 18,
+                          backgroundColor: primary.withOpacity(0.15),
+                          child: Text(review.userName.isNotEmpty ? review.userName[0].toUpperCase() : '?', style: TextStyle(color: primary, fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(review.userName, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
+                              Text(timeText, style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+                            ],
+                          ),
+                        ),
+                        Row(children: List.generate(5, (i) => Icon(
+                          i < review.rating ? Icons.star_rounded : Icons.star_outline_rounded,
+                          color: i < review.rating ? Colors.amber : Colors.grey.shade300, size: 16,
+                        ))),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(review.comment, style: const TextStyle(fontSize: 14, height: 1.4, color: Colors.black87)),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

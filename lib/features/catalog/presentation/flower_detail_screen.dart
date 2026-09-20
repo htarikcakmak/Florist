@@ -8,6 +8,7 @@ import '../../cart/presentation/cart_provider.dart';
 import '../../review/presentation/review_provider.dart';
 import '../../review/domain/review.dart';
 import '../../auth/presentation/auth_provider.dart';
+import '../../favorite/presentation/favorite_provider.dart';
 
 Widget _buildResponsiveImage(String path, {double? width, double? height}) {
   return kIsWeb ? Image.network(path, width: width, height: height, fit: BoxFit.cover) : Image.file(File(path), width: width, height: height, fit: BoxFit.cover);
@@ -164,6 +165,33 @@ class _FlowerDetailScreenState extends ConsumerState<FlowerDetailScreen> with Si
               ),
               onPressed: () => Navigator.pop(context),
             ),
+            actions: [
+              // Favori kalp butonu
+              Consumer(builder: (context, ref, _) {
+                final favState = ref.watch(favoriteProvider);
+                final isFav = favState.favoriteFlowerIds.contains(widget.flower.id);
+                return IconButton(
+                  icon: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(color: Colors.white70, shape: BoxShape.circle),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: Icon(
+                        isFav ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                        key: ValueKey(isFav),
+                        size: 22,
+                        color: isFav ? Colors.red : primary,
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    final authState = ref.read(authProvider);
+                    ref.read(favoriteProvider.notifier).toggleFavorite(widget.flower.id, authState.userId ?? 0);
+                  },
+                );
+              }),
+              const SizedBox(width: 4),
+            ],
             flexibleSpace: FlexibleSpaceBar(background: _buildResponsiveImage(widget.flower.imagePath, width: double.infinity)),
           ),
           

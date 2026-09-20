@@ -22,4 +22,31 @@ class Flower {
     this.descriptionEn,
     this.descriptionEs,
   });
+
+  factory Flower.fromJson(Map<String, dynamic> json) {
+    return Flower(
+      id: (json['id'] ?? 0).toString(),
+      name: json['name'] ?? '',
+      nameEn: json['nameEn'],
+      nameEs: json['nameEs'],
+      price: (json['price'] ?? 0).toDouble(),
+      imagePath: json['imagePath'] ?? json['image_path'] ?? json['imageUrl'] ?? '',
+      category: json['category'] ?? 'Buket',
+      description: json['description'] ?? '',
+      descriptionEn: json['descriptionEn'],
+      descriptionEs: json['descriptionEs'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'nameEn': nameEn,
+    'nameEs': nameEs,
+    'price': price,
+    'imagePath': imagePath,
+    'category': category,
+    'description': description,
+    'descriptionEn': descriptionEn,
+    'descriptionEs': descriptionEs,
+  };
 }

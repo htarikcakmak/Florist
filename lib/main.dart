@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'features/theme/presentation/theme_provider.dart';
 
 import 'features/auth/presentation/login_screen.dart';
 import 'features/auth/presentation/register_screen.dart';
@@ -71,20 +72,28 @@ CustomTransitionPage _smoothPage(GoRouterState state, Widget child) {
   );
 }
 
-class FloweristApp extends StatelessWidget {
+class FloweristApp extends ConsumerWidget {
   const FloweristApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeNotifier = ref.watch(themeProvider.notifier);
+
     // ÇİÇEK TEMALI (Sadece Soft Yeşil)
-    const primaryGreen = Color(0xFF2C5E3B); // Koyu Orman Yeşili
-    const softGreen = Color(0xFF90C2A0); // Çok Tatlı Soft Yeşil (Pembe iptal edildi)
+    const primaryGreen = Color(0xFF2C5E3B);
+    const softGreen = Color(0xFF90C2A0);
     const backgroundCream = Color(0xFFFDFBF7); 
     const inputFill = Color(0xFFFFFFFF); 
+
+    // Dark Mode renkleri
+    const darkBackground = Color(0xFF121212);
+    const darkSurface = Color(0xFF1E1E1E);
+    const darkCard = Color(0xFF2A2A2A);
 
     return MaterialApp.router(
       title: 'Flowerist',
       debugShowCheckedModeBanner: false,
+      themeMode: themeNotifier.themeMode,
       // i18n — Çoklu Dil Desteği
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -92,20 +101,22 @@ class FloweristApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('tr'), // Türkçe (varsayılan)
-        Locale('en'), // İngilizce
-        Locale('es'), // İspanyolca
+        Locale('tr'),
+        Locale('en'),
+        Locale('es'),
       ],
       locale: const Locale('tr'),
+
+      // LIGHT THEME
       theme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.light,
         scaffoldBackgroundColor: backgroundCream,
         colorScheme: ColorScheme.fromSeed(
           seedColor: primaryGreen,
           primary: primaryGreen,
           secondary: softGreen,
           tertiary: const Color(0xFFEAB875),
-          background: backgroundCream,
           surface: Colors.white,
         ),
         
@@ -116,12 +127,7 @@ class FloweristApp extends StatelessWidget {
           shadowColor: Colors.black12,
           backgroundColor: backgroundCream,
           foregroundColor: primaryGreen,
-          titleTextStyle: TextStyle(
-            color: primaryGreen,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
-          ),
+          titleTextStyle: TextStyle(color: primaryGreen, fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: -0.5),
           iconTheme: IconThemeData(color: primaryGreen),
         ),
         
@@ -132,14 +138,8 @@ class FloweristApp extends StatelessWidget {
             elevation: 4,
             shadowColor: primaryGreen.withOpacity(0.4),
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0.5,
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5),
           ),
         ),
 
@@ -147,22 +147,10 @@ class FloweristApp extends StatelessWidget {
           filled: true,
           fillColor: inputFill,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Colors.grey.shade300, width: 1),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: softGreen, width: 2), // Odaklanınca artık soft yeşil
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey.shade300, width: 1)),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey.shade200, width: 1.5)),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: softGreen, width: 2)),
+          errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: Colors.redAccent, width: 1.5)),
           hintStyle: TextStyle(color: Colors.grey.shade500),
           labelStyle: const TextStyle(color: primaryGreen, fontWeight: FontWeight.w500),
           prefixIconColor: primaryGreen.withOpacity(0.7),
@@ -173,9 +161,67 @@ class FloweristApp extends StatelessWidget {
           color: Colors.white,
           elevation: 6,
           shadowColor: Colors.black.withOpacity(0.08),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          margin: EdgeInsets.zero,
+        ),
+      ),
+
+      // DARK THEME
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: darkBackground,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: softGreen,
+          brightness: Brightness.dark,
+          primary: softGreen,
+          secondary: primaryGreen,
+          tertiary: const Color(0xFFEAB875),
+          surface: darkSurface,
+        ),
+
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+          scrolledUnderElevation: 4,
+          shadowColor: Colors.black26,
+          backgroundColor: darkBackground,
+          foregroundColor: softGreen,
+          titleTextStyle: const TextStyle(color: softGreen, fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: -0.5),
+          iconTheme: const IconThemeData(color: softGreen),
+        ),
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: softGreen,
+            foregroundColor: Colors.black,
+            elevation: 4,
+            shadowColor: softGreen.withOpacity(0.3),
+            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5),
           ),
+        ),
+
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: darkCard,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey.shade700, width: 1)),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey.shade700, width: 1.5)),
+          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: softGreen, width: 2)),
+          errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: Colors.redAccent, width: 1.5)),
+          hintStyle: TextStyle(color: Colors.grey.shade500),
+          labelStyle: const TextStyle(color: softGreen, fontWeight: FontWeight.w500),
+          prefixIconColor: softGreen.withOpacity(0.7),
+          suffixIconColor: softGreen.withOpacity(0.7),
+        ),
+
+        cardTheme: CardThemeData(
+          color: darkCard,
+          elevation: 4,
+          shadowColor: Colors.black.withOpacity(0.2),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           margin: EdgeInsets.zero,
         ),
       ),

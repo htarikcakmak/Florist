@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../auth/presentation/auth_provider.dart';
+import '../../theme/presentation/theme_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -96,7 +97,7 @@ class ProfileScreen extends ConsumerWidget {
                 context: context,
                 backgroundColor: Colors.white,
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-                builder: (context) => _buildSettingsSheet(context, primary),
+                builder: (context) => _buildSettingsSheet(context, primary, ref),
               );
             }),
             const SizedBox(height: 32),
@@ -223,7 +224,8 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSettingsSheet(BuildContext context, Color primary) {
+  Widget _buildSettingsSheet(BuildContext context, Color primary, WidgetRef ref) {
+    final currentTheme = ref.watch(themeProvider);
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -232,6 +234,34 @@ class ProfileScreen extends ConsumerWidget {
         children: [
           Text('Ayarlar', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: primary)),
           const SizedBox(height: 24),
+          // Tema seçici
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: Icon(
+              currentTheme == AppThemeMode.dark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
+              color: primary, size: 28,
+            ),
+            title: const Text('Tema', style: TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: const Text('Açık, koyu veya sistem teması'),
+            trailing: SegmentedButton<AppThemeMode>(
+              showSelectedIcon: false,
+              style: SegmentedButton.styleFrom(
+                selectedBackgroundColor: primary.withOpacity(0.15),
+                selectedForegroundColor: primary,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+              ),
+              segments: const [
+                ButtonSegment(value: AppThemeMode.light, icon: Icon(Icons.wb_sunny_rounded, size: 18)),
+                ButtonSegment(value: AppThemeMode.dark, icon: Icon(Icons.dark_mode_rounded, size: 18)),
+                ButtonSegment(value: AppThemeMode.system, icon: Icon(Icons.phone_android_rounded, size: 18)),
+              ],
+              selected: {currentTheme},
+              onSelectionChanged: (selected) {
+                ref.read(themeProvider.notifier).setTheme(selected.first);
+              },
+            ),
+          ),
+          const Divider(),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: Icon(Icons.language_rounded, color: primary, size: 28),
