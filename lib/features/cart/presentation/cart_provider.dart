@@ -50,6 +50,30 @@ class CartNotifier extends Notifier<CartState> {
   void clearCart() {
     state = CartState();
   }
+
+  // Ürünü sepetten çıkar
+  void removeFromCart(String flowerId) {
+    final updatedItems = state.items.where((item) => item.flower.id != flowerId).toList();
+    if (updatedItems.isEmpty) {
+      state = CartState();
+    } else {
+      state = CartState(storeName: state.storeName, items: updatedItems);
+    }
+  }
+
+  // Ürün miktarını güncelle
+  void updateQuantity(String flowerId, int newQuantity) {
+    if (newQuantity <= 0) {
+      removeFromCart(flowerId);
+      return;
+    }
+    final updatedItems = List<CartItem>.from(state.items);
+    final index = updatedItems.indexWhere((item) => item.flower.id == flowerId);
+    if (index >= 0) {
+      updatedItems[index].quantity = newQuantity;
+      state = CartState(storeName: state.storeName, items: updatedItems);
+    }
+  }
 }
 
 final cartProvider = NotifierProvider<CartNotifier, CartState>(() => CartNotifier());
