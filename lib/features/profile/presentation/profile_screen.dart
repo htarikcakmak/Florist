@@ -107,10 +107,10 @@ class ProfileScreen extends ConsumerWidget {
                     cardColor: cardColor,
                     items: [
                       _MenuItem(icon: Icons.shopping_bag_rounded, label: 'Siparişlerim', color: Colors.blue, onTap: () {
-                        _showOrdersSheet(context, primary, ref);
+                        context.push('/orders');
                       }),
                       _MenuItem(icon: Icons.favorite_rounded, label: 'Favorilerim', color: Colors.red, badge: favCount > 0 ? '$favCount' : null, onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$favCount favori ürün'), backgroundColor: primary, behavior: SnackBarBehavior.floating, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))));
+                        context.push('/favorites');
                       }),
                       _MenuItem(icon: Icons.location_on_rounded, label: 'Adreslerim', color: Colors.orange, onTap: () {
                         _showAddressesSheet(context, primary);

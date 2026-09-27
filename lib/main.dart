@@ -4,12 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'features/theme/presentation/theme_provider.dart';
 
+import 'features/splash/presentation/splash_screen.dart';
+import 'features/onboarding/presentation/onboarding_screen.dart';
 import 'features/auth/presentation/login_screen.dart';
 import 'features/auth/presentation/register_screen.dart';
 import 'features/catalog/presentation/main_layout_screen.dart';
 import 'features/store/presentation/seller_dashboard_screen.dart';
 import 'features/catalog/presentation/vendor_detail_screen.dart';
 import 'features/cart/presentation/checkout_screen.dart';
+import 'features/order/presentation/order_history_screen.dart';
+import 'features/favorite/presentation/favorites_screen.dart';
 
 void main() {
   runApp(
@@ -20,8 +24,16 @@ void main() {
 }
 
 final _router = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      pageBuilder: (context, state) => _smoothPage(state, const SplashScreen()),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      pageBuilder: (context, state) => _smoothPage(state, const OnboardingScreen()),
+    ),
     GoRoute(
       path: '/login',
       pageBuilder: (context, state) => _smoothPage(state, const LoginScreen()),
@@ -48,6 +60,14 @@ final _router = GoRouter(
     GoRoute(
       path: '/checkout',
       pageBuilder: (context, state) => _smoothPage(state, const CheckoutScreen()),
+    ),
+    GoRoute(
+      path: '/orders',
+      pageBuilder: (context, state) => _smoothPage(state, const OrderHistoryScreen()),
+    ),
+    GoRoute(
+      path: '/favorites',
+      pageBuilder: (context, state) => _smoothPage(state, const FavoritesScreen()),
     ),
   ],
 );
