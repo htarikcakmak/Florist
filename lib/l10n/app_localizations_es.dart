@@ -42,7 +42,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get home => 'Inicio';
 
   @override
-  String get search => 'Buscar';
+  String get search => 'Explorar';
 
   @override
   String get cart => 'Carrito';
@@ -54,7 +54,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addToCart => 'Añadir al Carrito';
 
   @override
-  String get checkout => 'Pagar';
+  String get checkout => 'Completar Pedido';
 
   @override
   String get confirmOrder => 'Confirmar Pedido';
@@ -66,13 +66,85 @@ class AppLocalizationsEs extends AppLocalizations {
   String get emptyCart => 'Tu carrito está vacío';
 
   @override
+  String get emptyCartSubtitle => '¡Descubre flores hermosas! 🌸';
+
+  @override
+  String get startShopping => 'Empezar a Comprar';
+
+  @override
   String get total => 'Total';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get shipping => 'Envío';
+
+  @override
+  String get freeShipping => 'Gratis';
+
+  @override
+  String get completeOrder => 'Completar Pedido';
 
   @override
   String get deliveryAddress => 'Dirección de Entrega';
 
   @override
+  String get paymentInfo => 'Información de Pago';
+
+  @override
   String get cardNumber => 'Número de Tarjeta';
+
+  @override
+  String get creditCard => 'Tarjeta de Crédito';
+
+  @override
+  String get cashOnDelivery => 'Pago Contra Entrega';
+
+  @override
+  String get orderSummary => 'Resumen del Pedido';
+
+  @override
+  String get address => 'Dirección';
+
+  @override
+  String get payment => 'Pago';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get back => 'Atrás';
+
+  @override
+  String get continueText => 'Continuar';
+
+  @override
+  String get pay => 'Pagar';
+
+  @override
+  String get orderNote => 'Nota del Pedido';
+
+  @override
+  String get addNewAddress => 'Agregar Nueva Dirección';
+
+  @override
+  String get orderReceived => '¡Pedido Recibido! 🌸';
+
+  @override
+  String get flowersOnTheWay => 'Tus flores están en camino';
+
+  @override
+  String get goHome => 'Ir al Inicio';
+
+  @override
+  String get clearCartBtn => 'Limpiar';
+
+  @override
+  String get cartCleared => 'Carrito limpiado';
+
+  @override
+  String get removedFromCart => 'eliminado del carrito';
 
   @override
   String get myOrders => 'Mis Pedidos';
@@ -87,20 +159,88 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settings => 'Ajustes';
 
   @override
-  String get language => 'Idioma de la App';
+  String get language => 'Idioma';
 
   @override
   String get security => 'Seguridad';
 
   @override
+  String get help => 'Ayuda';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get noOrders => 'No hay pedidos aún';
+
+  @override
+  String get noOrdersSubtitle => '¡Explora para hacer tu primer pedido! 🌸';
+
+  @override
+  String get noFavorites => 'No hay favoritos aún';
+
+  @override
+  String get noFavoritesSubtitle => '¡Toca ❤️ en las flores que te gusten!';
+
+  @override
+  String get writeReview => 'Escribir Reseña';
+
+  @override
+  String get nearbyStores => 'Tiendas Cercanas';
+
+  @override
+  String get allStores => 'Todas';
+
+  @override
+  String get categories => 'Categorías';
+
+  @override
+  String get noStores => 'No hay tiendas activas aún';
+
+  @override
+  String get roses => 'Rosas';
+
+  @override
+  String get orchid => 'Orquídea';
+
+  @override
+  String get daisy => 'Margarita';
+
+  @override
+  String get bouquet => 'Ramo';
+
+  @override
+  String get potted => 'Maceta';
+
+  @override
+  String get bridal => 'Novia';
+
+  @override
+  String get birthday => 'Cumpleaños';
+
+  @override
+  String get forLove => 'Para Amor';
+
+  @override
+  String get results => 'Resultados';
+
+  @override
+  String get allVendors => 'Todas las Tiendas';
+
+  @override
+  String get noResults => 'Sin resultados';
+
+  @override
+  String get searchHint => 'Buscar flores, tiendas o categorías...';
+
+  @override
   String get registerSuccess => '¡Registro exitoso! Bienvenido. 🌸';
 
   @override
-  String get loginFailed => 'Inicio de sesión fallido. Verifica tus datos.';
+  String get loginFailed => 'Error de inicio de sesión. Verifica tus datos.';
 
   @override
-  String get emailInUse =>
-      'Este correo ya está registrado. Intenta iniciar sesión.';
+  String get emailInUse => 'Este correo ya está registrado.';
 
   @override
   String get enterEmail => 'Ingresa tu correo electrónico';
@@ -130,7 +270,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get joinUs => 'Únete';
 
   @override
-  String get storeLogin => 'Acceso Tienda';
+  String get storeLogin => 'Inicio Tienda';
 
   @override
   String get differentStore => 'Tienda Diferente';
@@ -139,7 +279,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get differentStoreMsg => 'Tu carrito tiene productos de otra tienda.';
 
   @override
-  String get clearCart => 'Vaciar Carrito';
+  String get clearCart => 'Limpiar Carrito';
 
   @override
   String get cancel => 'Cancelar';
@@ -159,14 +299,51 @@ class AppLocalizationsEs extends AppLocalizations {
   String get description => 'Descripción';
 
   @override
-  String get flowerName => 'Nombre de la Flor';
+  String get flowerName => 'Nombre de Flor';
 
   @override
-  String get addFlower => 'Añadir Nueva Flor';
+  String get addFlower => 'Agregar Nueva Flor';
 
   @override
-  String get addToStore => 'Añadir a la Tienda';
+  String get addToStore => 'Agregar a Tienda';
 
   @override
   String get noFlowers => 'Aún no hay flores en esta tienda.';
+
+  @override
+  String get onboarding1Title => 'Descubre Flores Hermosas';
+
+  @override
+  String get onboarding1Subtitle => 'Elige entre cientos de flores y ramos.';
+
+  @override
+  String get onboarding2Title => 'Entrega Rápida';
+
+  @override
+  String get onboarding2Subtitle =>
+      'Tu pedido entregado rápidamente a tu puerta.';
+
+  @override
+  String get onboarding3Title => 'Sé Vendedor';
+
+  @override
+  String get onboarding3Subtitle => 'Abre tu tienda y vende tus flores.';
+
+  @override
+  String get skip => 'Saltar';
+
+  @override
+  String get letsStart => '¡Comencemos!';
+
+  @override
+  String get pending => 'Pendiente';
+
+  @override
+  String get preparing => 'Preparando';
+
+  @override
+  String get shipped => 'Enviado';
+
+  @override
+  String get delivered => 'Entregado';
 }

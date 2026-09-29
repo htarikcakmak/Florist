@@ -42,7 +42,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get home => 'Home';
 
   @override
-  String get search => 'Search';
+  String get search => 'Explore';
 
   @override
   String get cart => 'Cart';
@@ -54,7 +54,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addToCart => 'Add to Cart';
 
   @override
-  String get checkout => 'Checkout';
+  String get checkout => 'Complete Order';
 
   @override
   String get confirmOrder => 'Confirm Order';
@@ -66,13 +66,85 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyCart => 'Your cart is empty';
 
   @override
+  String get emptyCartSubtitle => 'Start exploring beautiful flowers! 🌸';
+
+  @override
+  String get startShopping => 'Start Shopping';
+
+  @override
   String get total => 'Total';
+
+  @override
+  String get subtotal => 'Subtotal';
+
+  @override
+  String get shipping => 'Shipping';
+
+  @override
+  String get freeShipping => 'Free';
+
+  @override
+  String get completeOrder => 'Complete Order';
 
   @override
   String get deliveryAddress => 'Delivery Address';
 
   @override
+  String get paymentInfo => 'Payment Info';
+
+  @override
   String get cardNumber => 'Card Number';
+
+  @override
+  String get creditCard => 'Credit Card';
+
+  @override
+  String get cashOnDelivery => 'Cash on Delivery';
+
+  @override
+  String get orderSummary => 'Order Summary';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get payment => 'Payment';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get continueText => 'Continue';
+
+  @override
+  String get pay => 'Pay';
+
+  @override
+  String get orderNote => 'Order Note';
+
+  @override
+  String get addNewAddress => 'Add New Address';
+
+  @override
+  String get orderReceived => 'Order Received! 🌸';
+
+  @override
+  String get flowersOnTheWay => 'Your flowers are on the way';
+
+  @override
+  String get goHome => 'Go to Home';
+
+  @override
+  String get clearCartBtn => 'Clear';
+
+  @override
+  String get cartCleared => 'Cart cleared';
+
+  @override
+  String get removedFromCart => 'removed from cart';
 
   @override
   String get myOrders => 'My Orders';
@@ -87,10 +159,79 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get language => 'App Language';
+  String get language => 'Language';
 
   @override
   String get security => 'Security';
+
+  @override
+  String get help => 'Help';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get noOrders => 'No orders yet';
+
+  @override
+  String get noOrdersSubtitle => 'Explore to place your first order! 🌸';
+
+  @override
+  String get noFavorites => 'No favorites yet';
+
+  @override
+  String get noFavoritesSubtitle => 'Tap ❤️ on flowers you like!';
+
+  @override
+  String get writeReview => 'Write Review';
+
+  @override
+  String get nearbyStores => 'Nearby Stores';
+
+  @override
+  String get allStores => 'All';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get noStores => 'No active stores yet';
+
+  @override
+  String get roses => 'Roses';
+
+  @override
+  String get orchid => 'Orchid';
+
+  @override
+  String get daisy => 'Daisy';
+
+  @override
+  String get bouquet => 'Bouquet';
+
+  @override
+  String get potted => 'Potted';
+
+  @override
+  String get bridal => 'Bridal';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get forLove => 'For Love';
+
+  @override
+  String get results => 'Results';
+
+  @override
+  String get allVendors => 'All Stores';
+
+  @override
+  String get noResults => 'No results found';
+
+  @override
+  String get searchHint => 'Search flowers, stores or categories...';
 
   @override
   String get registerSuccess => 'Registration successful! Welcome. 🌸';
@@ -99,7 +240,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginFailed => 'Login failed. Please check your credentials.';
 
   @override
-  String get emailInUse => 'This email is already registered. Try signing in.';
+  String get emailInUse => 'This email is already registered.';
 
   @override
   String get enterEmail => 'Please enter your email';
@@ -168,4 +309,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noFlowers => 'No flowers in this store yet.';
+
+  @override
+  String get onboarding1Title => 'Discover Beautiful Flowers';
+
+  @override
+  String get onboarding1Subtitle =>
+      'Choose from hundreds of flowers and bouquets.';
+
+  @override
+  String get onboarding2Title => 'Fast Delivery';
+
+  @override
+  String get onboarding2Subtitle =>
+      'Your order delivered to your door quickly.';
+
+  @override
+  String get onboarding3Title => 'Become a Seller';
+
+  @override
+  String get onboarding3Subtitle => 'Open your store and sell your flowers.';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get letsStart => 'Let\'s Start!';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get preparing => 'Preparing';
+
+  @override
+  String get shipped => 'Shipped';
+
+  @override
+  String get delivered => 'Delivered';
 }

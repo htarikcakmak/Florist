@@ -169,7 +169,7 @@ abstract class AppLocalizations {
   /// No description provided for @search.
   ///
   /// In tr, this message translates to:
-  /// **'Arama'**
+  /// **'Keşfet'**
   String get search;
 
   /// No description provided for @cart.
@@ -193,7 +193,7 @@ abstract class AppLocalizations {
   /// No description provided for @checkout.
   ///
   /// In tr, this message translates to:
-  /// **'Ödeme'**
+  /// **'Sipariş Tamamla'**
   String get checkout;
 
   /// No description provided for @confirmOrder.
@@ -205,14 +205,26 @@ abstract class AppLocalizations {
   /// No description provided for @orderSuccess.
   ///
   /// In tr, this message translates to:
-  /// **'Siparişiniz başarıyla alındı! 🌸'**
+  /// **'Siparişiniz alındı! 🌸'**
   String get orderSuccess;
 
   /// No description provided for @emptyCart.
   ///
   /// In tr, this message translates to:
-  /// **'Sepetiniz boş'**
+  /// **'Sepetin boş'**
   String get emptyCart;
+
+  /// No description provided for @emptyCartSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Güzel çiçekler keşfetmeye başla! 🌸'**
+  String get emptyCartSubtitle;
+
+  /// No description provided for @startShopping.
+  ///
+  /// In tr, this message translates to:
+  /// **'Alışverişe Başla'**
+  String get startShopping;
 
   /// No description provided for @total.
   ///
@@ -220,17 +232,149 @@ abstract class AppLocalizations {
   /// **'Toplam'**
   String get total;
 
+  /// No description provided for @subtotal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ara Toplam'**
+  String get subtotal;
+
+  /// No description provided for @shipping.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kargo'**
+  String get shipping;
+
+  /// No description provided for @freeShipping.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ücretsiz'**
+  String get freeShipping;
+
+  /// No description provided for @completeOrder.
+  ///
+  /// In tr, this message translates to:
+  /// **'Siparişi Tamamla'**
+  String get completeOrder;
+
   /// No description provided for @deliveryAddress.
   ///
   /// In tr, this message translates to:
   /// **'Teslimat Adresi'**
   String get deliveryAddress;
 
+  /// No description provided for @paymentInfo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ödeme Bilgileri'**
+  String get paymentInfo;
+
   /// No description provided for @cardNumber.
   ///
   /// In tr, this message translates to:
   /// **'Kart Numarası'**
   String get cardNumber;
+
+  /// No description provided for @creditCard.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kredi Kartı'**
+  String get creditCard;
+
+  /// No description provided for @cashOnDelivery.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kapıda Ödeme'**
+  String get cashOnDelivery;
+
+  /// No description provided for @orderSummary.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sipariş Özeti'**
+  String get orderSummary;
+
+  /// No description provided for @address.
+  ///
+  /// In tr, this message translates to:
+  /// **'Adres'**
+  String get address;
+
+  /// No description provided for @payment.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ödeme'**
+  String get payment;
+
+  /// No description provided for @confirm.
+  ///
+  /// In tr, this message translates to:
+  /// **'Onay'**
+  String get confirm;
+
+  /// No description provided for @back.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geri'**
+  String get back;
+
+  /// No description provided for @continueText.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devam'**
+  String get continueText;
+
+  /// No description provided for @pay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öde'**
+  String get pay;
+
+  /// No description provided for @orderNote.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sipariş Notu'**
+  String get orderNote;
+
+  /// No description provided for @addNewAddress.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yeni Adres Ekle'**
+  String get addNewAddress;
+
+  /// No description provided for @orderReceived.
+  ///
+  /// In tr, this message translates to:
+  /// **'Siparişiniz Alındı! 🌸'**
+  String get orderReceived;
+
+  /// No description provided for @flowersOnTheWay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çiçekleriniz yola çıkacak'**
+  String get flowersOnTheWay;
+
+  /// No description provided for @goHome.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ana Sayfaya Dön'**
+  String get goHome;
+
+  /// No description provided for @clearCartBtn.
+  ///
+  /// In tr, this message translates to:
+  /// **'Temizle'**
+  String get clearCartBtn;
+
+  /// No description provided for @cartCleared.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sepet temizlendi'**
+  String get cartCleared;
+
+  /// No description provided for @removedFromCart.
+  ///
+  /// In tr, this message translates to:
+  /// **'sepetten çıkarıldı'**
+  String get removedFromCart;
 
   /// No description provided for @myOrders.
   ///
@@ -259,7 +403,7 @@ abstract class AppLocalizations {
   /// No description provided for @language.
   ///
   /// In tr, this message translates to:
-  /// **'Uygulama Dili'**
+  /// **'Dil'**
   String get language;
 
   /// No description provided for @security.
@@ -267,6 +411,144 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Güvenlik'**
   String get security;
+
+  /// No description provided for @help.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yardım'**
+  String get help;
+
+  /// No description provided for @theme.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tema'**
+  String get theme;
+
+  /// No description provided for @noOrders.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz siparişin yok'**
+  String get noOrders;
+
+  /// No description provided for @noOrdersSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlk siparişini vermek için keşfet! 🌸'**
+  String get noOrdersSubtitle;
+
+  /// No description provided for @noFavorites.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz favori yok'**
+  String get noFavorites;
+
+  /// No description provided for @noFavoritesSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Beğendiğin çiçeklere ❤️ bas!'**
+  String get noFavoritesSubtitle;
+
+  /// No description provided for @writeReview.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yorum Yap'**
+  String get writeReview;
+
+  /// No description provided for @nearbyStores.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yakındaki Mağazalar'**
+  String get nearbyStores;
+
+  /// No description provided for @allStores.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tümü'**
+  String get allStores;
+
+  /// No description provided for @categories.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kategoriler'**
+  String get categories;
+
+  /// No description provided for @noStores.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz aktif mağaza yok'**
+  String get noStores;
+
+  /// No description provided for @roses.
+  ///
+  /// In tr, this message translates to:
+  /// **'Güller'**
+  String get roses;
+
+  /// No description provided for @orchid.
+  ///
+  /// In tr, this message translates to:
+  /// **'Orkide'**
+  String get orchid;
+
+  /// No description provided for @daisy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Papatya'**
+  String get daisy;
+
+  /// No description provided for @bouquet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Buket'**
+  String get bouquet;
+
+  /// No description provided for @potted.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saksı'**
+  String get potted;
+
+  /// No description provided for @bridal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gelin'**
+  String get bridal;
+
+  /// No description provided for @birthday.
+  ///
+  /// In tr, this message translates to:
+  /// **'Doğum Günü'**
+  String get birthday;
+
+  /// No description provided for @forLove.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sevgiliye'**
+  String get forLove;
+
+  /// No description provided for @results.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonuçlar'**
+  String get results;
+
+  /// No description provided for @allVendors.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tüm Mağazalar'**
+  String get allVendors;
+
+  /// No description provided for @noResults.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonuç bulunamadı'**
+  String get noResults;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çiçek, mağaza veya kategori ara...'**
+  String get searchHint;
 
   /// No description provided for @registerSuccess.
   ///
@@ -283,7 +565,7 @@ abstract class AppLocalizations {
   /// No description provided for @emailInUse.
   ///
   /// In tr, this message translates to:
-  /// **'Bu e-posta zaten kayıtlı. Giriş yapmayı deneyin.'**
+  /// **'Bu e-posta zaten kayıtlı.'**
   String get emailInUse;
 
   /// No description provided for @enterEmail.
@@ -417,6 +699,78 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'Bu mağazada henüz çiçek bulunmuyor.'**
   String get noFlowers;
+
+  /// No description provided for @onboarding1Title.
+  ///
+  /// In tr, this message translates to:
+  /// **'Güzel Çiçekler Keşfet'**
+  String get onboarding1Title;
+
+  /// No description provided for @onboarding1Subtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yüzlerce çiçek ve buket arasından seçim yapın.'**
+  String get onboarding1Subtitle;
+
+  /// No description provided for @onboarding2Title.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hızlı Teslimat'**
+  String get onboarding2Title;
+
+  /// No description provided for @onboarding2Subtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Siparişiniz en kısa sürede kapınıza gelsin.'**
+  String get onboarding2Subtitle;
+
+  /// No description provided for @onboarding3Title.
+  ///
+  /// In tr, this message translates to:
+  /// **'Satıcı Ol'**
+  String get onboarding3Title;
+
+  /// No description provided for @onboarding3Subtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kendi mağazanı aç, çiçeklerini sat.'**
+  String get onboarding3Subtitle;
+
+  /// No description provided for @skip.
+  ///
+  /// In tr, this message translates to:
+  /// **'Atla'**
+  String get skip;
+
+  /// No description provided for @letsStart.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başlayalım!'**
+  String get letsStart;
+
+  /// No description provided for @pending.
+  ///
+  /// In tr, this message translates to:
+  /// **'Beklemede'**
+  String get pending;
+
+  /// No description provided for @preparing.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hazırlanıyor'**
+  String get preparing;
+
+  /// No description provided for @shipped.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kargoda'**
+  String get shipped;
+
+  /// No description provided for @delivered.
+  ///
+  /// In tr, this message translates to:
+  /// **'Teslim Edildi'**
+  String get delivered;
 }
 
 class _AppLocalizationsDelegate

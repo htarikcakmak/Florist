@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'features/theme/presentation/theme_provider.dart';
+import 'features/locale/presentation/locale_provider.dart';
+import 'l10n/app_localizations.dart';
 
 import 'features/splash/presentation/splash_screen.dart';
 import 'features/onboarding/presentation/onboarding_screen.dart';
@@ -100,6 +102,7 @@ class FloweristApp extends ConsumerWidget {
     // State'i watch ediyoruz ki değişince rebuild olsun
     ref.watch(themeProvider);
     final themeNotifier = ref.read(themeProvider.notifier);
+    final locale = ref.watch(localeProvider);
 
     // ÇİÇEK TEMALI (Sadece Soft Yeşil)
     const primaryGreen = Color(0xFF2C5E3B);
@@ -118,16 +121,13 @@ class FloweristApp extends ConsumerWidget {
       themeMode: themeNotifier.themeMode,
       // i18n — Çoklu Dil Desteği
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('tr'),
-        Locale('en'),
-        Locale('es'),
-      ],
-      locale: const Locale('tr'),
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
 
       // LIGHT THEME
       theme: ThemeData(

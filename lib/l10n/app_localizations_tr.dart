@@ -42,7 +42,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get home => 'Ana Sayfa';
 
   @override
-  String get search => 'Arama';
+  String get search => 'Keşfet';
 
   @override
   String get cart => 'Sepet';
@@ -54,25 +54,97 @@ class AppLocalizationsTr extends AppLocalizations {
   String get addToCart => 'Sepete Ekle';
 
   @override
-  String get checkout => 'Ödeme';
+  String get checkout => 'Sipariş Tamamla';
 
   @override
   String get confirmOrder => 'Siparişi Onayla';
 
   @override
-  String get orderSuccess => 'Siparişiniz başarıyla alındı! 🌸';
+  String get orderSuccess => 'Siparişiniz alındı! 🌸';
 
   @override
-  String get emptyCart => 'Sepetiniz boş';
+  String get emptyCart => 'Sepetin boş';
+
+  @override
+  String get emptyCartSubtitle => 'Güzel çiçekler keşfetmeye başla! 🌸';
+
+  @override
+  String get startShopping => 'Alışverişe Başla';
 
   @override
   String get total => 'Toplam';
 
   @override
+  String get subtotal => 'Ara Toplam';
+
+  @override
+  String get shipping => 'Kargo';
+
+  @override
+  String get freeShipping => 'Ücretsiz';
+
+  @override
+  String get completeOrder => 'Siparişi Tamamla';
+
+  @override
   String get deliveryAddress => 'Teslimat Adresi';
 
   @override
+  String get paymentInfo => 'Ödeme Bilgileri';
+
+  @override
   String get cardNumber => 'Kart Numarası';
+
+  @override
+  String get creditCard => 'Kredi Kartı';
+
+  @override
+  String get cashOnDelivery => 'Kapıda Ödeme';
+
+  @override
+  String get orderSummary => 'Sipariş Özeti';
+
+  @override
+  String get address => 'Adres';
+
+  @override
+  String get payment => 'Ödeme';
+
+  @override
+  String get confirm => 'Onay';
+
+  @override
+  String get back => 'Geri';
+
+  @override
+  String get continueText => 'Devam';
+
+  @override
+  String get pay => 'Öde';
+
+  @override
+  String get orderNote => 'Sipariş Notu';
+
+  @override
+  String get addNewAddress => 'Yeni Adres Ekle';
+
+  @override
+  String get orderReceived => 'Siparişiniz Alındı! 🌸';
+
+  @override
+  String get flowersOnTheWay => 'Çiçekleriniz yola çıkacak';
+
+  @override
+  String get goHome => 'Ana Sayfaya Dön';
+
+  @override
+  String get clearCartBtn => 'Temizle';
+
+  @override
+  String get cartCleared => 'Sepet temizlendi';
+
+  @override
+  String get removedFromCart => 'sepetten çıkarıldı';
 
   @override
   String get myOrders => 'Siparişlerim';
@@ -87,10 +159,79 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settings => 'Ayarlar';
 
   @override
-  String get language => 'Uygulama Dili';
+  String get language => 'Dil';
 
   @override
   String get security => 'Güvenlik';
+
+  @override
+  String get help => 'Yardım';
+
+  @override
+  String get theme => 'Tema';
+
+  @override
+  String get noOrders => 'Henüz siparişin yok';
+
+  @override
+  String get noOrdersSubtitle => 'İlk siparişini vermek için keşfet! 🌸';
+
+  @override
+  String get noFavorites => 'Henüz favori yok';
+
+  @override
+  String get noFavoritesSubtitle => 'Beğendiğin çiçeklere ❤️ bas!';
+
+  @override
+  String get writeReview => 'Yorum Yap';
+
+  @override
+  String get nearbyStores => 'Yakındaki Mağazalar';
+
+  @override
+  String get allStores => 'Tümü';
+
+  @override
+  String get categories => 'Kategoriler';
+
+  @override
+  String get noStores => 'Henüz aktif mağaza yok';
+
+  @override
+  String get roses => 'Güller';
+
+  @override
+  String get orchid => 'Orkide';
+
+  @override
+  String get daisy => 'Papatya';
+
+  @override
+  String get bouquet => 'Buket';
+
+  @override
+  String get potted => 'Saksı';
+
+  @override
+  String get bridal => 'Gelin';
+
+  @override
+  String get birthday => 'Doğum Günü';
+
+  @override
+  String get forLove => 'Sevgiliye';
+
+  @override
+  String get results => 'Sonuçlar';
+
+  @override
+  String get allVendors => 'Tüm Mağazalar';
+
+  @override
+  String get noResults => 'Sonuç bulunamadı';
+
+  @override
+  String get searchHint => 'Çiçek, mağaza veya kategori ara...';
 
   @override
   String get registerSuccess => 'Kayıt başarılı! Hoş geldiniz. 🌸';
@@ -100,7 +241,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.';
 
   @override
-  String get emailInUse => 'Bu e-posta zaten kayıtlı. Giriş yapmayı deneyin.';
+  String get emailInUse => 'Bu e-posta zaten kayıtlı.';
 
   @override
   String get enterEmail => 'Lütfen e-posta adresinizi girin';
@@ -170,4 +311,42 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get noFlowers => 'Bu mağazada henüz çiçek bulunmuyor.';
+
+  @override
+  String get onboarding1Title => 'Güzel Çiçekler Keşfet';
+
+  @override
+  String get onboarding1Subtitle =>
+      'Yüzlerce çiçek ve buket arasından seçim yapın.';
+
+  @override
+  String get onboarding2Title => 'Hızlı Teslimat';
+
+  @override
+  String get onboarding2Subtitle =>
+      'Siparişiniz en kısa sürede kapınıza gelsin.';
+
+  @override
+  String get onboarding3Title => 'Satıcı Ol';
+
+  @override
+  String get onboarding3Subtitle => 'Kendi mağazanı aç, çiçeklerini sat.';
+
+  @override
+  String get skip => 'Atla';
+
+  @override
+  String get letsStart => 'Başlayalım!';
+
+  @override
+  String get pending => 'Beklemede';
+
+  @override
+  String get preparing => 'Hazırlanıyor';
+
+  @override
+  String get shipped => 'Kargoda';
+
+  @override
+  String get delivered => 'Teslim Edildi';
 }

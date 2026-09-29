@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../auth/presentation/auth_provider.dart';
 import '../../theme/presentation/theme_provider.dart';
+import '../../locale/presentation/locale_provider.dart';
 import '../../favorite/presentation/favorite_provider.dart';
 import '../../order/presentation/order_provider.dart';
 
@@ -122,9 +123,7 @@ class ProfileScreen extends ConsumerWidget {
                     cardColor: cardColor,
                     items: [
                       _MenuItem(icon: Icons.palette_rounded, label: 'Tema', color: Colors.purple, trailing: _ThemeSelector(ref: ref, primary: primary)),
-                      _MenuItem(icon: Icons.language_rounded, label: 'Dil', color: Colors.teal, subtitle: 'Türkçe', onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text('Dil: Türkçe'), backgroundColor: primary, behavior: SnackBarBehavior.floating, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))));
-                      }),
+                      _MenuItem(icon: Icons.language_rounded, label: 'Dil', color: Colors.teal, trailing: _LanguageSelector(ref: ref, primary: primary)),
                       _MenuItem(icon: Icons.security_rounded, label: 'Güvenlik', color: Colors.blueGrey, onTap: () {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text('Hesabınız güvenli 🔒'), backgroundColor: primary, behavior: SnackBarBehavior.floating, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))));
                       }),
@@ -317,6 +316,36 @@ class _ThemeSelector extends StatelessWidget {
         ],
         selected: {current},
         onSelectionChanged: (s) => ref.read(themeProvider.notifier).setTheme(s.first),
+      ),
+    );
+  }
+}
+
+class _LanguageSelector extends StatelessWidget {
+  final WidgetRef ref;
+  final Color primary;
+  const _LanguageSelector({required this.ref, required this.primary});
+
+  @override
+  Widget build(BuildContext context) {
+    final current = ref.watch(localeProvider);
+    return SizedBox(
+      height: 36,
+      child: SegmentedButton<String>(
+        showSelectedIcon: false,
+        style: SegmentedButton.styleFrom(
+          selectedBackgroundColor: primary.withOpacity(0.15),
+          selectedForegroundColor: primary,
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          visualDensity: VisualDensity.compact,
+        ),
+        segments: const [
+          ButtonSegment(value: 'tr', label: Text('TR', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold))),
+          ButtonSegment(value: 'en', label: Text('EN', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold))),
+          ButtonSegment(value: 'es', label: Text('ES', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold))),
+        ],
+        selected: {current.languageCode},
+        onSelectionChanged: (s) => ref.read(localeProvider.notifier).setLocale(Locale(s.first)),
       ),
     );
   }
