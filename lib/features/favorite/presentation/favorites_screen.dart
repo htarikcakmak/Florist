@@ -62,7 +62,15 @@ class FavoritesScreen extends ConsumerWidget {
               itemCount: demoFavorites.length,
               itemBuilder: (context, index) {
                 final flower = demoFavorites[index];
-                return _FavoriteCard(flower: flower, cardColor: cardColor, primary: primary, ref: ref);
+                final flowerId = int.tryParse(flower.id) ?? -1;
+                final isFavorite = favIds.contains(flowerId);
+                return _FavoriteCard(
+                  flower: flower,
+                  cardColor: cardColor,
+                  primary: primary,
+                  ref: ref,
+                  isFavorite: isFavorite,
+                );
               },
             ),
     );
@@ -79,7 +87,15 @@ class _FavoriteCard extends StatelessWidget {
   final _FavFlower flower;
   final Color cardColor, primary;
   final WidgetRef ref;
-  const _FavoriteCard({required this.flower, required this.cardColor, required this.primary, required this.ref});
+  final bool isFavorite;
+
+  const _FavoriteCard({
+    required this.flower,
+    required this.cardColor,
+    required this.primary,
+    required this.ref,
+    required this.isFavorite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +124,7 @@ class _FavoriteCard extends StatelessWidget {
                 top: 8, right: 8,
                 child: GestureDetector(
                   onTap: () {
-                    ref.read(favoriteProvider.notifier).toggleFavorite(flower.id);
+                    ref.read(favoriteProvider.notifier).toggleFavorite(flower.id, 1);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text('${flower.name} favorilerden çıkarıldı'),
                       behavior: SnackBarBehavior.floating,
@@ -118,7 +134,11 @@ class _FavoriteCard extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(color: Colors.white.withOpacity(0.9), shape: BoxShape.circle, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4)]),
-                    child: const Icon(Icons.favorite_rounded, color: Colors.red, size: 18),
+                    child: Icon(
+                      isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                      color: isFavorite ? Colors.red : Colors.grey.shade400,
+                      size: 18,
+                    ),
                   ),
                 ),
               ),
