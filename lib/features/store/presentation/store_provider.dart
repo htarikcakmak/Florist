@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../../catalog/domain/flower.dart';
 
 class StoreNotifier extends Notifier<List<Flower>> {
-  static const String baseUrl = 'http://10.0.2.2:8080/api/flowers';
+  static const String baseUrl = 'https://flowerist-api.onrender.com/api/flowers';
 
   @override
   List<Flower> build() {

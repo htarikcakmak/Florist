@@ -11,7 +11,7 @@ class ReviewState {
 }
 
 class ReviewNotifier extends Notifier<ReviewState> {
-  static const String baseUrl = 'http://10.0.2.2:8080/api/reviews';
+  static const String baseUrl = 'https://flowerist-api.onrender.com/api/reviews';
 
   @override
   ReviewState build() => ReviewState();

@@ -26,7 +26,7 @@ class AuthState {
 }
 
 class AuthNotifier extends Notifier<AuthState> {
-  static const String baseUrl = 'http://10.0.2.2:8080/api/auth';
+  static const String baseUrl = 'https://flowerist-api.onrender.com/api/auth';
   static const _storage = FlutterSecureStorage();
 
   @override

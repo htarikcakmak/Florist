@@ -10,7 +10,7 @@ class FavoriteState {
 }
 
 class FavoriteNotifier extends Notifier<FavoriteState> {
-  static const String baseUrl = 'http://10.0.2.2:8080/api/favorites';
+  static const String baseUrl = 'https://flowerist-api.onrender.com/api/favorites';
 
   @override
   FavoriteState build() => FavoriteState();

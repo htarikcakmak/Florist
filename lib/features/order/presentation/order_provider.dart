@@ -72,7 +72,7 @@ class OrderState {
 }
 
 class OrderNotifier extends Notifier<OrderState> {
-  static const String baseUrl = 'http://10.0.2.2:8080/api/orders';
+  static const String baseUrl = 'https://flowerist-api.onrender.com/api/orders';
 
   @override
   OrderState build() => OrderState();
