@@ -26,8 +26,7 @@ class ReviewNotifier extends Notifier<ReviewState> {
         return;
       }
     } catch (_) {}
-    // Fallback — demo yorumlar
-    state = ReviewState(reviews: _demoReviews(flowerId));
+    state = ReviewState(reviews: []);
   }
 
   Future<void> loadStoreReviews(int storeId) async {
@@ -65,14 +64,6 @@ class ReviewNotifier extends Notifier<ReviewState> {
       return true;
     }
     return false;
-  }
-
-  List<Review> _demoReviews(int flowerId) {
-    return [
-      Review(userId: 1, userName: 'Ayşe K.', flowerId: flowerId, storeId: 1, rating: 5, comment: 'Harika çiçekler, çok taze geldi! 🌸', createdAt: DateTime.now().subtract(const Duration(days: 2))),
-      Review(userId: 2, userName: 'Mehmet T.', flowerId: flowerId, storeId: 1, rating: 4, comment: 'Gayet güzel, paketleme de iyiydi.', createdAt: DateTime.now().subtract(const Duration(days: 5))),
-      Review(userId: 3, userName: 'Zeynep A.', flowerId: flowerId, storeId: 1, rating: 5, comment: 'Anneme hediye aldım, çok beğendi!', createdAt: DateTime.now().subtract(const Duration(days: 8))),
-    ];
   }
 }
 

@@ -87,21 +87,20 @@ class OrderNotifier extends Notifier<OrderState> {
         return;
       }
     } catch (_) {}
-    // Fallback demo siparişler
-    state = OrderState(orders: _demoOrders());
+    state = OrderState(orders: []);
   }
 
   Future<void> loadStoreOrders(int storeId) async {
     state = OrderState(orders: state.orders, isLoading: true);
     try {
-      final response = await http.get(Uri.parse('$baseUrl/store/$storeId')).timeout(const Duration(seconds: 5));
+      final response = await http.get(Uri.parse('$baseUrl/store/$storeId')).timeout(const Duration(seconds: 8));
       if (response.statusCode == 200) {
         final List data = jsonDecode(response.body);
         state = OrderState(orders: data.map((o) => Order.fromJson(o)).toList());
         return;
       }
     } catch (_) {}
-    state = OrderState(orders: _demoOrders());
+    state = OrderState(orders: []);
   }
 
   Future<void> updateOrderStatus(int orderId, String newStatus) async {
@@ -120,21 +119,6 @@ class OrderNotifier extends Notifier<OrderState> {
       }
       return o;
     }).toList());
-  }
-
-  List<Order> _demoOrders() {
-    return [
-      Order(id: 1, userId: 1, storeId: 1, totalPrice: 249.90, status: 'PREPARING', createdAt: DateTime.now().subtract(const Duration(hours: 3)), items: [
-        OrderItem(id: 1, flowerName: 'Kırmızı Gül Buketi', quantity: 1, price: 149.90),
-        OrderItem(id: 2, flowerName: 'Papatya Aranjman', quantity: 1, price: 100.00),
-      ]),
-      Order(id: 2, userId: 1, storeId: 1, totalPrice: 89.90, status: 'DELIVERED', createdAt: DateTime.now().subtract(const Duration(days: 3)), items: [
-        OrderItem(id: 3, flowerName: 'Orkide Saksı', quantity: 1, price: 89.90),
-      ]),
-      Order(id: 3, userId: 1, storeId: 2, totalPrice: 199.90, status: 'PENDING', createdAt: DateTime.now().subtract(const Duration(minutes: 30)), items: [
-        OrderItem(id: 4, flowerName: 'Gelin Çiçeği', quantity: 1, price: 199.90),
-      ]),
-    ];
   }
 }
 
