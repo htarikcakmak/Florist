@@ -48,13 +48,30 @@ class ProfileScreen extends ConsumerWidget {
                   Row(
                     children: [
                       // Avatar
-                      Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white.withOpacity(0.5), width: 2)),
-                        child: CircleAvatar(
-                          radius: 36,
-                          backgroundColor: Colors.white.withOpacity(0.2),
-                          child: Text(displayName[0], style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+                      GestureDetector(
+                        onTap: () => context.push('/edit-profile'),
+                        child: Stack(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(3),
+                              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white.withOpacity(0.5), width: 2)),
+                              child: CircleAvatar(
+                                radius: 36,
+                                backgroundColor: Colors.white.withOpacity(0.2),
+                                child: authState.avatarUrl != null && authState.avatarUrl!.isNotEmpty
+                                    ? Text(authState.avatarUrl!, style: const TextStyle(fontSize: 36))
+                                    : Text(displayName[0], style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0, right: 0,
+                              child: Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                child: Icon(Icons.edit_rounded, size: 14, color: primary),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -65,6 +82,10 @@ class ProfileScreen extends ConsumerWidget {
                             Text(displayName, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
                             const SizedBox(height: 4),
                             Text(email, style: TextStyle(fontSize: 13, color: Colors.white.withOpacity(0.8)), maxLines: 1, overflow: TextOverflow.ellipsis),
+                            if (authState.phone != null && authState.phone!.isNotEmpty) ...[
+                              const SizedBox(height: 2),
+                              Text('📱 ${authState.phone}', style: TextStyle(fontSize: 12, color: Colors.white.withOpacity(0.7))),
+                            ],
                             const SizedBox(height: 6),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),

@@ -12,7 +12,9 @@ class AuthState {
   final String? email;
   final String? name;
   final int? userId;
-  final String? token; // JWT Token
+  final String? token;
+  final String? phone;
+  final String? avatarUrl;
 
   AuthState({
     this.isLoading = false, 
@@ -22,6 +24,8 @@ class AuthState {
     this.name,
     this.userId,
     this.token,
+    this.phone,
+    this.avatarUrl,
   });
 }
 
@@ -42,6 +46,8 @@ class AuthNotifier extends Notifier<AuthState> {
     final name = await _storage.read(key: 'user_name');
     final role = await _storage.read(key: 'user_role');
     final userId = await _storage.read(key: 'user_id');
+    final phone = await _storage.read(key: 'user_phone');
+    final avatarUrl = await _storage.read(key: 'user_avatar');
 
     if (token != null && email != null) {
       state = AuthState(
@@ -52,6 +58,8 @@ class AuthNotifier extends Notifier<AuthState> {
         name: name,
         userId: int.tryParse(userId ?? '0'),
         token: token,
+        phone: phone,
+        avatarUrl: avatarUrl,
       );
     }
   }
@@ -96,6 +104,8 @@ class AuthNotifier extends Notifier<AuthState> {
         await _storage.write(key: 'user_name', value: data['name']);
         await _storage.write(key: 'user_role', value: data['role']);
         await _storage.write(key: 'user_id', value: data['id'].toString());
+        await _storage.write(key: 'user_phone', value: data['phone'] ?? '');
+        await _storage.write(key: 'user_avatar', value: data['avatarUrl'] ?? '');
 
         state = AuthState(
           isLoading: false,
@@ -105,6 +115,8 @@ class AuthNotifier extends Notifier<AuthState> {
           name: data['name'],
           userId: data['id'],
           token: token,
+          phone: data['phone'],
+          avatarUrl: data['avatarUrl'],
         );
         return;
       } else {
@@ -136,6 +148,46 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> logout() async {
     await _storage.deleteAll();
     state = AuthState();
+  }
+
+  Future<bool> updateProfile({String? name, String? phone, String? avatarUrl}) async {
+    if (state.userId == null || state.token == null) return false;
+    try {
+      final body = <String, String>{};
+      if (name != null) body['name'] = name;
+      if (phone != null) body['phone'] = phone;
+      if (avatarUrl != null) body['avatarUrl'] = avatarUrl;
+
+      final response = await http.put(
+        Uri.parse('https://flowerist-api.onrender.com/api/users/${state.userId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${state.token}',
+        },
+        body: jsonEncode(body),
+      ).timeout(const Duration(seconds: 8));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        await _storage.write(key: 'user_name', value: data['name'] ?? '');
+        await _storage.write(key: 'user_phone', value: data['phone'] ?? '');
+        await _storage.write(key: 'user_avatar', value: data['avatarUrl'] ?? '');
+
+        state = AuthState(
+          isLoading: false,
+          isAuthenticated: true,
+          role: state.role,
+          email: state.email,
+          name: data['name'],
+          userId: state.userId,
+          token: state.token,
+          phone: data['phone'],
+          avatarUrl: data['avatarUrl'],
+        );
+        return true;
+      }
+    } catch (_) {}
+    return false;
   }
 }
 

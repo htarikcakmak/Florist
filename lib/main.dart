@@ -16,6 +16,7 @@ import 'features/catalog/presentation/vendor_detail_screen.dart';
 import 'features/cart/presentation/checkout_screen.dart';
 import 'features/order/presentation/order_history_screen.dart';
 import 'features/favorite/presentation/favorites_screen.dart';
+import 'features/profile/presentation/edit_profile_screen.dart';
 
 void main() {
   runApp(
@@ -70,6 +71,10 @@ final _router = GoRouter(
     GoRoute(
       path: '/favorites',
       pageBuilder: (context, state) => _smoothPage(state, const FavoritesScreen()),
+    ),
+    GoRoute(
+      path: '/edit-profile',
+      pageBuilder: (context, state) => _smoothPage(state, const EditProfileScreen()),
     ),
   ],
 );
